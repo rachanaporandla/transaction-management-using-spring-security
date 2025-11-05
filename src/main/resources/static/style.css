@@ -1,0 +1,87 @@
+body {
+  background-color: #0d1117;
+  color: #f0f6fc;
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: 50px auto;
+  background: #161b22;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #58a6ff;
+  margin-bottom: 25px;
+}
+
+button {
+  background-color: #238636;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button:hover {
+  background-color: #2ea043;
+}
+
+#alertBox {
+  text-align: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+#alertBox.success {
+  background-color: #238636;
+}
+
+#alertBox.error {
+  background-color: #da3633;
+}
+
+#alertBox.hidden {
+  display: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse; /* Ensures single borders between cells */
+  background: #0d1117;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th {
+  background-color: #1f6feb;
+  color: white;
+  text-align: left;
+  padding: 12px;
+  font-size: 15px;
+  border: 1px solid #30363d; /* ✅ adds lines between header columns */
+}
+
+td {
+  border: 1px solid #30363d; /* ✅ adds vertical & horizontal lines */
+  padding: 10px;
+  font-size: 14px;
+  color: #c9d1d9;
+}
+
+tr:hover {
+  background-color: #21262d;
+}
