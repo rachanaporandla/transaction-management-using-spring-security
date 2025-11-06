@@ -19,7 +19,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
-    // ✅ NEW: Handle Transaction not found (404)
     @ExceptionHandler(TransactionNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleTransactionNotFound(TransactionNotFoundException ex) {
         Map<String, String> error = new HashMap<>();
