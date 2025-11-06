@@ -3,6 +3,7 @@ package com.example.Transaction.Management.service;
 import com.example.Transaction.Management.dto.TransactionRequestDTO;
 import com.example.Transaction.Management.dto.TransactionResponseDTO;
 import com.example.Transaction.Management.entity.Transaction;
+import com.example.Transaction.Management.exception.TransactionNotFoundException;
 import com.example.Transaction.Management.repo.TransactionRepo;
 import com.example.Transaction.Management.Util.TransactionIdGenerator;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,10 @@ public class TransactionServiceImpl implements TransactionService {
     public TransactionServiceImpl(TransactionRepo repo) {
         this.repo = repo;
     }
+
     public Transaction create(TransactionRequestDTO dto) {
         String generatedId = TransactionIdGenerator.getInstance().generateTransactionId();
+
         Transaction transaction = Transaction.builder()
                 .transactionId(generatedId)
                 .amount(dto.getAmount())
@@ -26,11 +29,11 @@ public class TransactionServiceImpl implements TransactionService {
                 .currency(dto.getCurrency())
                 .customerName(dto.getCustomerName())
                 .build();
+
         return repo.save(transaction);
     }
-    public Transaction patchUpdate(Long id, TransactionResponseDTO dto)
-    {
-        Transaction existing = repo.findById(id).orElseThrow(() -> new RuntimeException("Transaction not found with ID: " + id));
+    public Transaction patchUpdate(Long id, TransactionResponseDTO dto) {
+        Transaction existing = repo.findById(id).orElseThrow(() -> new TransactionNotFoundException("Transaction not found with ID: " + id));
 
         if (dto.getTransactionId() != null)
             existing.setTransactionId(dto.getTransactionId());
@@ -44,12 +47,13 @@ public class TransactionServiceImpl implements TransactionService {
             existing.setCurrency(dto.getCurrency());
         if (dto.getCustomerName() != null)
             existing.setCustomerName(dto.getCustomerName());
+
         return repo.save(existing);
     }
     public Transaction searchByTransactionId(String transactionId) {
         Transaction transaction = repo.findByTransactionId(transactionId);
         if (transaction == null) {
-            throw new RuntimeException("Transaction not found with ID: " + transactionId);
+            throw new TransactionNotFoundException("Transaction not found with ID: " + transactionId);
         }
         return transaction;
     }
@@ -58,7 +62,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
     public void delete(Long id) {
         if (!repo.existsById(id)) {
-            throw new RuntimeException("Transaction not found with ID: " + id);
+            throw new TransactionNotFoundException("Transaction not found with ID: " + id);
         }
         repo.deleteById(id);
     }
